@@ -80,7 +80,7 @@ class ProfileForm extends React.Component {
 						name="profile"
 						onChange={this.onProfileChange}
 						onKeyPress={this.handleKeyPress}
-						autoFocus
+						autoFocus="autofocus"
 					/>
 					<button
 						onClick={this.onSubmit}

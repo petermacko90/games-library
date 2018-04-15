@@ -26,7 +26,7 @@ class App extends Component {
     return (
       <div className="helvetica">
         <header className="bg-navy gold">
-          <h1 className="f1 tc ma0 pa3">Games Library</h1>
+          <h1 className="f1-l f2-m f3 tc ma0 pa3">Games Library</h1>
         </header>
         <ProfileForm
           getOwnedGames={this.getOwnedGames}

@@ -1,8 +1,6 @@
 .scroll {
-	bottom: 30px;
-	right: 30px;
-	height: 100px;
-	width: 100px;
+	height: 90px;
+	width: 90px;
 	opacity: 0.5;
 }
 
@@ -10,12 +8,12 @@
 	opacity: 1;
 }
 
-.scroll div {
+.scroll>div {
 	width: 0; 
   height: 0; 
   border-left: 25px solid transparent;
   border-right: 25px solid transparent;
   border-bottom: 25px solid #FFB700;
-  left: 26%;
+  left: 25%;
   top: 32%;
 }

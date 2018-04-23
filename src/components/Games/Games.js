@@ -2,6 +2,7 @@ import React from 'react';
 import GameInfo from '../GameInfo/GameInfo';
 import SortSelect from '../SortSelect/SortSelect';
 import SearchBox from '../SearchBox/SearchBox';
+import Filters from '../Filters/Filters';
 import ScrollToTop from '../ScrollToTop/ScrollToTop';
 
 class Games extends React.Component {
@@ -9,12 +10,14 @@ class Games extends React.Component {
 		super(props);
 		this.state = {
 			orderBy: 'name',
-			searchField: ''
+			searchField: '',
+			filter: {
+				playedLastTwoWeeks: false
+			}
 		}
 	}
 
-	orderGamesByName = (order = "asc") => {
-		const { games } = this.props;
+	orderGamesByName = (games, order = "asc") => {
 		games.sort((a, b) => {
 			const nameA = a.name.toUpperCase();
 			const nameB = b.name.toUpperCase();
@@ -27,10 +30,10 @@ class Games extends React.Component {
 			}
 			return 0;
 		});
+		return games;
 	}
 
-	orderGamesByPlaytime = (order = "desc") => {
-		const { games } = this.props;
+	orderGamesByPlaytime = (games, order = "desc") => {
 		games.sort((a, b) => {
 			if (order === "desc") {
 				return b.playtime_forever - a.playtime_forever;
@@ -39,49 +42,67 @@ class Games extends React.Component {
 			}
 			return 0;
 		});
+		return games;
+	}
+
+	filterGames = (games, searchField, filter) => {
+		games = games.filter(game => {
+			return game.name.toLowerCase().includes(searchField.toLowerCase());
+		});
+		if (filter.playedLastTwoWeeks && games.length) {
+			games = games.filter(game => game.playtime_2weeks > 0);
+		}
+		return games;
 	}
 
 	onOrderChange = (event) => {
-		this.setState({ orderBy: event.target.value });
+		this.setState({orderBy: event.target.value});
 	}
 
 	onSearchChange = (event) => {
-		this.setState({ searchField: event.target.value });
+		this.setState({searchField: event.target.value});
+	}
+
+	onFilterChange = (event) => {
+		this.setState({filter: {
+			playedLastTwoWeeks: event.target.checked
+		}});
 	}
 
 	render() {
-		const { orderBy, searchField } = this.state;
+		const { orderBy, searchField, filter } = this.state;
 		const { games } = this.props;
+		const filteredGames = this.filterGames(games, searchField, filter);
+		let orderedGames = [];
 
-		switch (orderBy) {
-			case "name":
-				this.orderGamesByName();
-				break;
-			case "nameDesc":
-				this.orderGamesByName("desc");
-				break;
-			case "playtimeDesc":
-				this.orderGamesByPlaytime();
-				break;
-			case "playtime":
-				this.orderGamesByPlaytime("asc");
-				break;
-			default:
-				this.orderGamesByName();
+		if (filteredGames.length) {
+			switch (orderBy) {
+				case "name":
+					orderedGames = this.orderGamesByName(filteredGames);
+					break;
+				case "nameDesc":
+					orderedGames = this.orderGamesByName(filteredGames, "desc");
+					break;
+				case "playtimeDesc":
+					orderedGames = this.orderGamesByPlaytime(filteredGames);
+					break;
+				case "playtime":
+					orderedGames = this.orderGamesByPlaytime(filteredGames, "asc");
+					break;
+				default:
+					orderedGames = this.orderGamesByName(filteredGames);
+			}
 		}
-
-		const filteredGames = games.filter(game => {
-			return game.name.toLowerCase().includes(searchField.toLowerCase());
-		});
 
 		return (
 			<div className="mh6-l mh4-m mh0 mb4">
-				<p className="tc yellow">Game count: {filteredGames.length}</p>
+				<p className="tc yellow">Game count: {orderedGames.length}</p>
 				<SortSelect orderChange={this.onOrderChange} />
 				<SearchBox searchChange={this.onSearchChange} />
+				<Filters filterChange={this.onFilterChange} />
 				<div className="flex flex-wrap justify-center">
 					{
-						filteredGames.map((game) => {
+						orderedGames.map((game) => {
 			  			return (
 			  				<GameInfo
 			    				key={game.appid}

@@ -1,5 +1,6 @@
 import React from 'react';
 import Notification from '../Notification/Notification';
+import Spinner from '../Spinner/Spinner';
 
 class ProfileForm extends React.Component {
 	constructor(props) {
@@ -9,7 +10,8 @@ class ProfileForm extends React.Component {
 			notification: {
 				show: false,
 				text: ''
-			}
+			},
+			showSpinner: false
 		}
 	}
 
@@ -43,6 +45,8 @@ class ProfileForm extends React.Component {
   		return;
   	}
 
+  	this.setState({showSpinner: true});
+
   	fetch('https://gamesuggest-api.herokuapp.com/getownedgames', {
   		method: 'post',
   		headers: {'Content-Type': 'application/json'},
@@ -54,17 +58,20 @@ class ProfileForm extends React.Component {
   		.then(data => {
   			this.props.getOwnedGames(data.response);
   			this.props.setProfile(profile);
+  			this.setState({showSpinner: false});
   		})
   		.catch(error => {
   			this.setState({notification: {
 	        show: true,
 	        text: 'SteamID does not exist!'
 	      }});
+	      this.setState({showSpinner: false});
   		});	
   }
 
 	render() {
 		const {text, show} = this.state.notification;
+		const {showSpinner} = this.state;
 
 		return (
 			<div className="mw6 center mt4">
@@ -72,6 +79,7 @@ class ProfileForm extends React.Component {
 					show &&
 						<Notification text={text} onClick={this.hideNotification} />
 				}
+				{ showSpinner && <Spinner /> }
 				<div className="form">
 					<input
 						className="w-60-ns w-100 pa1 ba b--yellow yellow bg-dark-blue"

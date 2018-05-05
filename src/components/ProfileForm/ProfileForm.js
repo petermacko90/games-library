@@ -94,7 +94,7 @@ class ProfileForm extends React.Component {
 					<button
 						onClick={this.onSubmit}
 						className="games w-40-ns w-100 ba b--yellow yellow bg-dark-blue hover-dark-blue bg-animate hover-bg-yellow pa1 pointer">
-						<i class="fa fa-steam-square"></i> Get games
+						<i className="fa fa-steam-square"></i> Get games
 					</button>
 				</div>
 			</div>

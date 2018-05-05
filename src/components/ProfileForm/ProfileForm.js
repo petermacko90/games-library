@@ -1,6 +1,7 @@
 import React from 'react';
 import Notification from '../Notification/Notification';
 import Spinner from '../Spinner/Spinner';
+import '../../../node_modules/font-awesome/css/font-awesome.css';
 
 class ProfileForm extends React.Component {
 	constructor(props) {
@@ -93,7 +94,7 @@ class ProfileForm extends React.Component {
 					<button
 						onClick={this.onSubmit}
 						className="games w-40-ns w-100 ba b--yellow yellow bg-dark-blue hover-dark-blue bg-animate hover-bg-yellow pa1 pointer">
-						Get games
+						<i class="fa fa-steam-square"></i> Get games
 					</button>
 				</div>
 			</div>

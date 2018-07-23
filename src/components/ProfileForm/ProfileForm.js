@@ -21,7 +21,7 @@ class ProfileForm extends React.Component {
   }
 
   handleKeyPress = (e) => {
-  	if (e.key === 'Enter') {
+  	if (e.key === 'Enter' && this.state.profile) {
   		this.onSubmit();
   	}
   }
@@ -57,6 +57,9 @@ class ProfileForm extends React.Component {
   	})
   		.then(response => response.json())
   		.then(data => {
+  			if (Object.keys(data.response).length === 0) {
+  				throw new Error('SteamID does not exist!');
+  			}
   			this.props.getOwnedGames(data.response);
   			this.props.setProfile(profile);
   			this.setState({showSpinner: false});

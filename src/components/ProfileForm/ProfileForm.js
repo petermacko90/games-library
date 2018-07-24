@@ -14,6 +14,7 @@ const ProfileForm = ({ onInputChange, onButtonSubmit, onPressEnter }) => {
 					onChange={onInputChange}
 					onKeyPress={onPressEnter}
 					autoFocus="autofocus"
+					aria-label="SteamID"
 				/>
 				<button
 					onClick={onButtonSubmit}

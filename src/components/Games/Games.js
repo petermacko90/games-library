@@ -3,7 +3,6 @@ import GameInfo from '../GameInfo/GameInfo';
 import SortSelect from '../SortSelect/SortSelect';
 import SearchBox from '../SearchBox/SearchBox';
 import Filters from '../Filters/Filters';
-import ScrollToTop from '../ScrollToTop/ScrollToTop';
 
 class Games extends React.Component {
 	constructor(props) {
@@ -118,7 +117,6 @@ class Games extends React.Component {
 						})
 					}
 				</div>
-				<ScrollToTop />
 			</div>
 		);
 	}

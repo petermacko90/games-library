@@ -3,6 +3,7 @@ import ProfileForm from './components/ProfileForm/ProfileForm';
 import Games from './components/Games/Games';
 import Notification from './components/Notification/Notification';
 import Spinner from './components/Spinner/Spinner';
+import './App.css';
 
 class App extends Component {
   constructor() {
@@ -75,6 +76,12 @@ class App extends Component {
       }); 
   }
 
+  scrollToTop = () => {
+    this.scrollTop.scrollIntoView({
+      behavior: "smooth", block: "start", inline: "nearest"
+    });
+  }
+
   render() {
     const {games} = this.state.ownedGames;
     const {profile, showSpinner} = this.state;
@@ -82,6 +89,7 @@ class App extends Component {
 
     return (
       <div className="helvetica">
+        <div ref={(ref) => this.scrollTop = ref} />
         {
           show &&
             <Notification text={text} onClick={this.hideNotification} />
@@ -96,6 +104,14 @@ class App extends Component {
           onPressEnter={this.onPressEnter}
         />
         { games && <Games games={games} profile={profile} /> }
+        {
+          games &&
+            <div
+              onClick={this.scrollToTop}
+              title="To top"
+              className="fa fa-chevron-circle-up fa-5x scroll fixed bottom-2-l right-2-l bottom-1-m right-1-m bottom-0 right-0 gold pointer"
+            />
+        }
       </div>
     );
   }

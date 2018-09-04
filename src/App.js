@@ -11,6 +11,7 @@ class App extends Component {
     this.state = {
       profile: '',
       ownedGames: {},
+      page: 0,
       notification: {
         show: false,
         text: ''
@@ -65,6 +66,7 @@ class App extends Component {
         }
         this.setState({ownedGames: data.response});
         this.setState({showSpinner: false});
+        this.resetPage();
       })
       .catch(error => {
         this.setState({notification: {
@@ -82,9 +84,17 @@ class App extends Component {
     });
   }
 
+  onPageChange = (page) => (e) => {
+    this.setState({page});
+  }
+
+  resetPage = () => {
+    this.setState({page: 0});
+  }
+
   render() {
     const {games} = this.state.ownedGames;
-    const {profile, showSpinner} = this.state;
+    const {profile, showSpinner, page} = this.state;
     const {text, show} = this.state.notification;
 
     return (
@@ -103,7 +113,16 @@ class App extends Component {
           onButtonSubmit={this.onButtonSubmit}
           onPressEnter={this.onPressEnter}
         />
-        { games && <Games games={games} profile={profile} /> }
+        {
+          games &&
+            <Games
+              games={games}
+              profile={profile}
+              page={page}
+              changePage={this.onPageChange}
+              resetPage={this.resetPage}
+            />
+        }
         {
           games &&
             <div

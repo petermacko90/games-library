@@ -3,6 +3,7 @@ import GameInfo from '../GameInfo/GameInfo';
 import SortSelect from '../SortSelect/SortSelect';
 import SearchBox from '../SearchBox/SearchBox';
 import Filters from '../Filters/Filters';
+import Pagination from '../Pagination/Pagination';
 
 class Games extends React.Component {
 	constructor(props) {
@@ -60,17 +61,19 @@ class Games extends React.Component {
 
 	onSearchChange = (event) => {
 		this.setState({searchField: event.target.value});
+		this.props.resetPage();
 	}
 
 	onFilterChange = (event) => {
 		this.setState({filter: {
 			playedLastTwoWeeks: event.target.checked
 		}});
+		this.props.resetPage();
 	}
 
 	render() {
 		const { orderBy, searchField, filter } = this.state;
-		const { games } = this.props;
+		const { games, page } = this.props;
 		const filteredGames = this.filterGames(games, searchField, filter);
 		let orderedGames = [];
 
@@ -93,6 +96,14 @@ class Games extends React.Component {
 			}
 		}
 
+		const GAMES_PER_PAGE = 30;
+		let paginatedGames = [];
+		let pageCount = Math.ceil(orderedGames.length / GAMES_PER_PAGE);
+
+		for (let i = 0; i < pageCount; i++) {
+			paginatedGames[i] = orderedGames.slice(i * GAMES_PER_PAGE, i * GAMES_PER_PAGE + GAMES_PER_PAGE);
+		}
+
 		return (
 			<div className="mh6-l mh4-m mh0 mb4">
 				<p className="tc yellow">Game count: {orderedGames.length}</p>
@@ -100,23 +111,29 @@ class Games extends React.Component {
 				<SearchBox searchChange={this.onSearchChange} />
 				<Filters filterChange={this.onFilterChange} />
 				<div className="flex flex-wrap justify-center">
-					{
-						orderedGames.map((game) => {
-			  			return (
-			  				<GameInfo
-			    				key={game.appid}
-			    				appid={game.appid}
-			    				time={game.playtime_forever}
-			    				time2W={game.playtime_2weeks}
-			    				name={game.name}
-			    				logo={game.img_logo_url}
-			    				stats={game.has_community_visible_stats}
-			    				profile={this.props.profile}
-			  				/>
-			  			);
-						})
+					{	
+						paginatedGames[page] &&
+							paginatedGames[page].map((game) => {
+				  			return (
+				  				<GameInfo
+				    				key={game.appid}
+				    				appid={game.appid}
+				    				time={game.playtime_forever}
+				    				time2W={game.playtime_2weeks}
+				    				name={game.name}
+				    				logo={game.img_logo_url}
+				    				stats={game.has_community_visible_stats}
+				    				profile={this.props.profile}
+				  				/>
+				  			);
+							})
 					}
 				</div>
+				<Pagination
+					pageCount={Math.ceil(orderedGames.length / GAMES_PER_PAGE)}
+					activePage={page}
+					changePage={this.props.changePage}
+				/>
 			</div>
 		);
 	}

@@ -4,4 +4,4 @@ Note: if a profile on Steam has "Game Details" set to private, Steam will displa
 
 Back-end is in repository [games-library-api](https://github.com/petermacko90/games-library-api).
 
-App is available [online](https://gamesuggest.herokuapp.com/).
+App is available [online](https://petermacko90.github.io/games-library/).

@@ -39,7 +39,7 @@ class App extends Component {
 
   onButtonSubmit = () => {
     const { profile } = this.state;
-    
+
     this.hideNotification();
 
     if (!profile) {
@@ -75,7 +75,7 @@ class App extends Component {
         }});
         this.setState({ ownedGames: {} });
         this.setState({showSpinner: false});
-      }); 
+      });
   }
 
   scrollToTop = () => {

@@ -1,19 +1,20 @@
 import React from 'react';
 import './Pagination.css';
 
-const Pagination = ({ pageCount, activePage, changePage }) => {
-	let pages = [];
-
+const Pagination = ({ pageCount, changePage }) => {
+	let options = [];
 	for (let i = 0; i < pageCount; i++) {
-		let colors = (i === activePage) ? 'gold bg-navy' : 'yellow';
-		pages.push(
-			<div className={"dib mh1 pa2 pointer noselect " + colors} key={i}
-			onClick={changePage(i)} title={"Go to page " + (i + 1)}>
-				{i + 1}
-			</div>
+		options.push(
+			<option key={i} value={i}>{'Page ' + (i + 1)}</option>
 		);
 	}
-	return <div className="tc mt4">{pages}</div>;
+
+	return (
+		<select id="pagination" onChange={changePage}
+		className="yellow bg-navy b--none mt4 w-third-l w-50-m w-100 center db">
+			{	options }
+		</select>
+	);
 }
 
 export default Pagination;

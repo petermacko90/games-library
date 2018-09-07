@@ -84,8 +84,8 @@ class App extends Component {
     });
   }
 
-  onPageChange = (page) => (e) => {
-    this.setState({page});
+  onPageChange = (e) => {
+    this.setState({page: e.target.value});
   }
 
   resetPage = () => {

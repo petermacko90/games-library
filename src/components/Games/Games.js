@@ -130,8 +130,7 @@ class Games extends React.Component {
 					}
 				</div>
 				<Pagination
-					pageCount={Math.ceil(orderedGames.length / GAMES_PER_PAGE)}
-					activePage={page}
+					pageCount={pageCount}
 					changePage={this.props.changePage}
 				/>
 			</div>

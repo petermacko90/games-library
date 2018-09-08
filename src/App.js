@@ -108,29 +108,43 @@ class App extends Component {
         <header className="bg-navy gold">
           <h1 className="f1-l f2-m f3 tc ma0 pa3">Games Library</h1>
         </header>
-        <ProfileForm
-          onInputChange={this.onInputChange}
-          onButtonSubmit={this.onButtonSubmit}
-          onPressEnter={this.onPressEnter}
-        />
-        {
-          games &&
-            <Games
-              games={games}
-              profile={profile}
-              page={page}
-              changePage={this.onPageChange}
-              resetPage={this.resetPage}
-            />
-        }
-        {
-          games &&
-            <div
-              onClick={this.scrollToTop}
-              title="To top"
-              className="fa fa-chevron-circle-up fa-5x scroll fixed bottom-2-l right-2-l bottom-1-m right-1-m bottom-0 right-0 gold pointer"
-            />
-        }
+        <div className="body">
+          <ProfileForm
+            onInputChange={this.onInputChange}
+            onButtonSubmit={this.onButtonSubmit}
+            onPressEnter={this.onPressEnter}
+          />
+          {
+            games &&
+              <Games
+                games={games}
+                profile={profile}
+                page={page}
+                changePage={this.onPageChange}
+                resetPage={this.resetPage}
+              />
+          }
+          {
+            games &&
+              <div
+                onClick={this.scrollToTop}
+                title="To top"
+                className="fa fa-chevron-circle-up fa-5x scroll fixed z-1 bottom-2-l right-2-l bottom-1-m right-1-m bottom-0 right-0 gold pointer"
+              />
+          }
+        </div>
+        <footer className="yellow bg-navy tc pa3">
+          <div>
+            Icons made by <a className="gold"
+            href="https://www.flaticon.com/authors/pixel-buddha"
+            title="Pixel Buddha">Pixel Buddha</a> from <a className="gold"
+            href="https://www.flaticon.com/"
+            title="Flaticon">www.flaticon.com</a> is licensed by <a className="gold"
+            rel="noopener noreferrer"
+            href="http://creativecommons.org/licenses/by/3.0/"
+            title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
+          </div>
+        </footer>
       </div>
     );
   }

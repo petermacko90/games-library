@@ -1,3 +1,18 @@
+footer {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+footer a {
+	text-decoration: underline dotted;
+}
+
+.body {
+	padding-bottom: 50px;
+}
+
 .scroll {
 	opacity: 0.5;
 }

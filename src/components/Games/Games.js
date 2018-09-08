@@ -135,6 +135,7 @@ class Games extends React.Component {
 					orderedGames.length > 0 &&
 						<Pagination
 							pageCount={pageCount}
+							activePage={page}
 							changePage={this.props.changePage}
 						/>
 				}

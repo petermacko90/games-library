@@ -1,12 +1,13 @@
 import React from 'react';
 
-const Filters = ({ filterChange }) => {
+const Filters = ({ filterChange, filter }) => {
 	return (
 		<div className="mw6 mb4 center">
 			<input
 				id="playedLastTwoWeeks"
 				type="checkbox"
 				onChange={filterChange}
+				checked={filter.playedLastTwoWeeks}
 			/>
 			<label
 				htmlFor="playedLastTwoWeeks"

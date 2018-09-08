@@ -107,12 +107,12 @@ class Games extends React.Component {
 		return (
 			<div className="mh6-l mh4-m mh0 mb4">
 				<p className="tc yellow">Game count: {orderedGames.length}</p>
-				<SortSelect orderChange={this.onOrderChange} />
-				<SearchBox searchChange={this.onSearchChange} />
-				<Filters filterChange={this.onFilterChange} />
+				<SearchBox searchChange={this.onSearchChange} value={searchField} />
+				<SortSelect orderChange={this.onOrderChange} orderBy={orderBy} />
+				<Filters filterChange={this.onFilterChange} filter={filter} />
 				<div className="flex flex-wrap justify-center">
 					{	
-						paginatedGames[page] &&
+						paginatedGames[page] ?
 							paginatedGames[page].map((game) => {
 				  			return (
 				  				<GameInfo
@@ -127,12 +127,17 @@ class Games extends React.Component {
 				  				/>
 				  			);
 							})
+						:
+							<p className="gold f3">No games found</p>
 					}
 				</div>
-				<Pagination
-					pageCount={pageCount}
-					changePage={this.props.changePage}
-				/>
+				{
+					orderedGames.length > 0 &&
+						<Pagination
+							pageCount={pageCount}
+							changePage={this.props.changePage}
+						/>
+				}
 			</div>
 		);
 	}

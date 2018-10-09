@@ -19,19 +19,15 @@ const GameInfo = ({ appid, time, time2W, name, logo, stats, profile }) => {
 			{
 				stats &&
 				  <span>
-						<a
-							href={`http://steamcommunity.com/profiles/${profile}/stats/${appid}`}
-							target="_blank"
-							className="gold">
+						<a target="_blank" rel="noopener noreferrer" className="gold"
+						href={`http://steamcommunity.com/profiles/${profile}/stats/${appid}`}>
 							View stats
 						</a>
 						<span className="yellow"> | </span>
 					</span>
 			}
-			<a
-				href={`http://store.steampowered.com/app/${appid}`}
-				target="_blank"
-				className="gold">
+			<a href={`http://store.steampowered.com/app/${appid}`}
+			target="_blank" rel="noopener noreferrer" className="gold">
 				Open in Steam Store
 			</a>
 		</div>

@@ -8,7 +8,7 @@
     "gh-pages": "^1.2.0",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
-    "react-scripts": "1.1.4",
+    "react-scripts": "^2.0.4",
     "tachyons": "^4.9.1"
   },
   "scripts": {
@@ -18,5 +18,11 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "eject": "react-scripts eject"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import ProfileForm from './components/ProfileForm/ProfileForm';
 import Games from './components/Games/Games';
+import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
 import Notification from './components/Notification/Notification';
 import Spinner from './components/Spinner/Spinner';
 import './App.css';
@@ -21,14 +23,19 @@ class App extends Component {
   }
 
   hideNotification = () => {
-    this.setState({notification: {
-      show: false,
-      text: ''
-    }});
+    this.setState({ notification: { show: false, text: '' } });
   }
 
-  onInputChange = (event) => {
-    this.setState({profile: event.target.value});
+  showNotification = (text) => {
+    this.setState({ notification: { show: true, text } });
+  }
+
+  setSpinner = (showSpinner) => {
+    this.setState({ showSpinner });
+  }
+
+  onInputChange = (e) => {
+    this.setState({ profile: e.target.value });
   }
 
   onPressEnter = (e) => {
@@ -40,17 +47,13 @@ class App extends Component {
   onButtonSubmit = () => {
     const { profile } = this.state;
 
-    this.hideNotification();
-
     if (!profile) {
-      this.setState({notification: {
-        show: true,
-        text: 'Empty SteamID!'
-      }});
+      this.showNotification('Empty SteamID!');
       return;
     }
-
-    this.setState({showSpinner: true});
+    
+    this.hideNotification();
+    this.setSpinner(true);
 
     fetch('https://gamesuggest-api.herokuapp.com/getownedgames', {
       method: 'post',
@@ -64,38 +67,35 @@ class App extends Component {
         if (Object.keys(data.response).length === 0) {
           throw new Error('SteamID does not exist!');
         }
-        this.setState({ownedGames: data.response});
-        this.setState({showSpinner: false});
+        this.setState({ ownedGames: data.response });
+        this.setSpinner(false);
         this.resetPage();
       })
       .catch(error => {
-        this.setState({notification: {
-          show: true,
-          text: 'SteamID does not exist!'
-        }});
         this.setState({ ownedGames: {} });
-        this.setState({showSpinner: false});
+        this.setSpinner(false);
+        this.showNotification('SteamID does not exist!');
       });
   }
 
   scrollToTop = () => {
     this.scrollTop.scrollIntoView({
-      behavior: "smooth", block: "start", inline: "nearest"
+      behavior: 'smooth', block: 'start', inline: 'nearest'
     });
   }
 
   onPageChange = (e) => {
-    this.setState({page: e.target.value});
+    this.setState({ page: e.target.value });
   }
 
   resetPage = () => {
-    this.setState({page: 0});
+    this.setState({ page: 0 });
   }
 
   render() {
-    const {games} = this.state.ownedGames;
-    const {profile, showSpinner, page} = this.state;
-    const {text, show} = this.state.notification;
+    const { games } = this.state.ownedGames;
+    const { profile, showSpinner, page } = this.state;
+    const { text, show } = this.state.notification;
 
     return (
       <div className="helvetica">
@@ -105,9 +105,7 @@ class App extends Component {
             <Notification text={text} onClick={this.hideNotification} />
         }
         { showSpinner && <Spinner /> }
-        <header className="bg-navy gold">
-          <h1 className="f1-l f2-m f3 tc ma0 pa3">Games Library</h1>
-        </header>
+        <Header />
         <div className="body">
           <ProfileForm
             onInputChange={this.onInputChange}
@@ -116,35 +114,23 @@ class App extends Component {
           />
           {
             games &&
-              <Games
-                games={games}
-                profile={profile}
-                page={page}
-                changePage={this.onPageChange}
-                resetPage={this.resetPage}
-              />
-          }
-          {
-            games &&
-              <div
-                onClick={this.scrollToTop}
-                title="To top"
-                className="fa fa-chevron-circle-up fa-5x scroll fixed z-1 bottom-2-l right-2-l bottom-1-m right-1-m bottom-0 right-0 gold pointer"
-              />
+              <Fragment>
+                <Games
+                  games={games}
+                  profile={profile}
+                  page={page}
+                  changePage={this.onPageChange}
+                  resetPage={this.resetPage}
+                />
+                <div
+                  onClick={this.scrollToTop}
+                  title="To top"
+                  className="fa fa-chevron-circle-up fa-5x scroll fixed z-1 bottom-2-l right-2-l bottom-1-m right-1-m bottom-0 right-0 gold pointer"
+                />
+              </Fragment>
           }
         </div>
-        <footer className="yellow bg-navy tc pa3">
-          <div>
-            Icons made by <a className="gold"
-            href="https://www.flaticon.com/authors/pixel-buddha"
-            title="Pixel Buddha">Pixel Buddha</a> from <a className="gold"
-            href="https://www.flaticon.com/"
-            title="Flaticon">www.flaticon.com</a> is licensed by <a className="gold"
-            rel="noopener noreferrer"
-            href="http://creativecommons.org/licenses/by/3.0/"
-            title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
-          </div>
-        </footer>
+        <Footer />
       </div>
     );
   }

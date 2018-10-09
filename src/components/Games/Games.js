@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import GameInfo from '../GameInfo/GameInfo';
 import SortSelect from '../SortSelect/SortSelect';
 import SearchBox from '../SearchBox/SearchBox';
 import Filters from '../Filters/Filters';
 import Pagination from '../Pagination/Pagination';
 
-class Games extends React.Component {
+class Games extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -55,19 +55,17 @@ class Games extends React.Component {
 		return games;
 	}
 
-	onOrderChange = (event) => {
-		this.setState({orderBy: event.target.value});
+	onOrderChange = (e) => {
+		this.setState({ orderBy: e.target.value });
 	}
 
-	onSearchChange = (event) => {
-		this.setState({searchField: event.target.value});
+	onSearchChange = (e) => {
+		this.setState({ searchField: e.target.value });
 		this.props.resetPage();
 	}
 
-	onFilterChange = (event) => {
-		this.setState({filter: {
-			playedLastTwoWeeks: event.target.checked
-		}});
+	onFilterChange = (e) => {
+		this.setState({ filter: { playedLastTwoWeeks: e.target.checked } });
 		this.props.resetPage();
 	}
 
@@ -98,7 +96,7 @@ class Games extends React.Component {
 
 		const GAMES_PER_PAGE = 30;
 		let paginatedGames = [];
-		let pageCount = Math.ceil(orderedGames.length / GAMES_PER_PAGE);
+		const pageCount = Math.ceil(orderedGames.length / GAMES_PER_PAGE);
 
 		for (let i = 0; i < pageCount; i++) {
 			paginatedGames[i] = orderedGames.slice(i * GAMES_PER_PAGE, i * GAMES_PER_PAGE + GAMES_PER_PAGE);

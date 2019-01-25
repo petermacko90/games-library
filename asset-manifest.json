@@ -1,16 +1,16 @@
 {
   "main.css": "/games-library/static/css/main.cb9105f2.chunk.css",
-  "main.js": "/games-library/static/js/main.a92e461a.chunk.js",
-  "main.js.map": "/games-library/static/js/main.a92e461a.chunk.js.map",
+  "main.js": "/games-library/static/js/main.bfdb7978.chunk.js",
+  "main.js.map": "/games-library/static/js/main.bfdb7978.chunk.js.map",
   "static/css/1.dcc74e88.chunk.css": "/games-library/static/css/1.dcc74e88.chunk.css",
   "static/js/1.c4727b29.chunk.js": "/games-library/static/js/1.c4727b29.chunk.js",
   "static/js/1.c4727b29.chunk.js.map": "/games-library/static/js/1.c4727b29.chunk.js.map",
   "runtime~main.js": "/games-library/static/js/runtime~main.e41f3f25.js",
   "runtime~main.js.map": "/games-library/static/js/runtime~main.e41f3f25.js.map",
-  "static/media/font-awesome.css": "/games-library/static/media/fontawesome-webfont.af7ae505.woff2",
+  "static/media/font-awesome.css": "/games-library/static/media/fontawesome-webfont.fee66e71.woff",
   "static/css/main.cb9105f2.chunk.css.map": "/games-library/static/css/main.cb9105f2.chunk.css.map",
   "static/css/1.dcc74e88.chunk.css.map": "/games-library/static/css/1.dcc74e88.chunk.css.map",
   "index.html": "/games-library/index.html",
-  "precache-manifest.0ec5a55beb7c91fff69b57ad5ac87da5.js": "/games-library/precache-manifest.0ec5a55beb7c91fff69b57ad5ac87da5.js",
+  "precache-manifest.5263ff67f0f258e6694888e0bfbac0ed.js": "/games-library/precache-manifest.5263ff67f0f258e6694888e0bfbac0ed.js",
   "service-worker.js": "/games-library/service-worker.js"
 }

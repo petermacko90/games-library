@@ -55,12 +55,10 @@ class App extends Component {
     this.hideNotification();
     this.setSpinner(true);
 
-    fetch('https://gamesuggest-api.herokuapp.com/getownedgames', {
-      method: 'post',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        profile: profile
-      })
+    fetch(`https://gamesuggest-api.herokuapp.com/getownedgames/${profile}`, {
+      method: 'get',
+      mode: 'no-cors',
+      headers: {'Content-Type': 'application/json'}
     })
       .then(response => response.json())
       .then(data => {
@@ -75,6 +73,7 @@ class App extends Component {
         this.setState({ ownedGames: {} });
         this.setSpinner(false);
         this.showNotification('SteamID does not exist!');
+        console.log(error);
       });
   }
 
@@ -108,6 +107,7 @@ class App extends Component {
         <Header />
         <div className="body">
           <ProfileForm
+            profile={profile}
             onInputChange={this.onInputChange}
             onButtonSubmit={this.onButtonSubmit}
             onPressEnter={this.onPressEnter}

@@ -1,7 +1,9 @@
 import React from 'react';
 import '../../../node_modules/font-awesome/css/font-awesome.css';
 
-const ProfileForm = ({ onInputChange, onButtonSubmit, onPressEnter }) => {
+const ProfileForm = ({
+	profile, onInputChange, onButtonSubmit, onPressEnter
+}) => {
 
 	return (
 		<div className="mw6 center mt4">
@@ -11,6 +13,7 @@ const ProfileForm = ({ onInputChange, onButtonSubmit, onPressEnter }) => {
 					type="text"
 					placeholder="SteamID"
 					name="profile"
+					value={profile}
 					onChange={onInputChange}
 					onKeyPress={onPressEnter}
 					autoFocus="autofocus"
